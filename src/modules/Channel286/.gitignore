@@ -1,0 +1,7 @@
+build*/
+.deps/
+*.user
+.DS_Store
+docs/references/
+calibration/.venv/
+calibration/__pycache__/

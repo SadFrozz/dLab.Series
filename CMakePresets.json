@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 22, "patch": 0},
+  "configurePresets": [
+    {
+      "name": "windows-x64",
+      "displayName": "Windows x64",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/windows-x64",
+      "architecture": "x64",
+      "condition": {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows"}
+    },
+    {
+      "name": "macos-universal",
+      "displayName": "macOS Universal (Intel + Apple Silicon)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/macos-universal",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_OSX_ARCHITECTURES": "x86_64;arm64",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"
+      },
+      "condition": {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin"}
+    }
+  ],
+  "buildPresets": [
+    {"name": "windows-x64", "configurePreset": "windows-x64", "configuration": "Release", "jobs": 4},
+    {"name": "macos-universal", "configurePreset": "macos-universal", "jobs": 4}
+  ],
+  "testPresets": [
+    {"name": "windows-x64", "configurePreset": "windows-x64", "configuration": "Release", "output": {"outputOnFailure": true}},
+    {"name": "macos-universal", "configurePreset": "macos-universal", "output": {"outputOnFailure": true}}
+  ]
+}

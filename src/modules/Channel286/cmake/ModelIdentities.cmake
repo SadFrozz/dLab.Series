@@ -1,0 +1,21 @@
+# Permanent identities: renaming a bundle must never change the published 286 IDs.
+# 376 is implemented independently; 676 remains reserved.
+set(CHANNEL_MODELS 286 376 676)
+set(CHANNEL_MANUFACTURER_CODE Frzz)
+foreach(model IN LISTS CHANNEL_MODELS)
+  set(CHANNEL_${model}_NAME "dLab ${model}")
+  set(CHANNEL_${model}_CODE "C${model}")
+  set(CHANNEL_${model}_BUNDLE_ID "com.frozz.channel${model}")
+  set(CHANNEL_${model}_STATE_TAG "Channel${model}State")
+endforeach()
+
+foreach(field NAME CODE BUNDLE_ID STATE_TAG)
+  set(seen_values "")
+  foreach(model IN LISTS CHANNEL_MODELS)
+    set(value "${CHANNEL_${model}_${field}}")
+    if(value IN_LIST seen_values)
+      message(FATAL_ERROR "Duplicate plug-in ${field}: ${value}")
+    endif()
+    list(APPEND seen_values "${value}")
+  endforeach()
+endforeach()

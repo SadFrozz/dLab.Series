@@ -1,0 +1,1 @@
+dLab plugins are independent emulations of dbx hardware, based on their operating principles and publicly available information.

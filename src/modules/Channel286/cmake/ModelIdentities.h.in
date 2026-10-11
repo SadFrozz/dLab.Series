@@ -1,0 +1,19 @@
+#pragma once
+#include <array>
+#include <cstdint>
+#include <string_view>
+
+namespace channelSuite {
+constexpr std::uint32_t fourCC(std::string_view code) {
+    return (std::uint32_t(code[0])<<24) | (std::uint32_t(code[1])<<16)
+         | (std::uint32_t(code[2])<<8) | std::uint32_t(code[3]);
+}
+struct ModelIdentity {
+    std::string_view name, pluginCode, bundleId, stateTag;
+};
+inline constexpr auto manufacturerCode=fourCC("@CHANNEL_MANUFACTURER_CODE@");
+inline constexpr ModelIdentity channel286{"@CHANNEL_286_NAME@","@CHANNEL_286_CODE@","@CHANNEL_286_BUNDLE_ID@","@CHANNEL_286_STATE_TAG@"};
+inline constexpr ModelIdentity channel376{"@CHANNEL_376_NAME@","@CHANNEL_376_CODE@","@CHANNEL_376_BUNDLE_ID@","@CHANNEL_376_STATE_TAG@"};
+inline constexpr ModelIdentity channel676{"@CHANNEL_676_NAME@","@CHANNEL_676_CODE@","@CHANNEL_676_BUNDLE_ID@","@CHANNEL_676_STATE_TAG@"};
+inline constexpr std::array<ModelIdentity,3> identities{channel286,channel376,channel676};
+}
